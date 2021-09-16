@@ -18,20 +18,13 @@ const con = mysql.createConnection({
 router.post('/', function(req, res, next) {
     res.status(201).json('"messeage" : "success"'); 
   });
-//회원가입
-router.post('/signup', function(req, res, next){   
+// 공유
+router.post('/share', function(req, res, next){   
     res.status(201).json('"messeage" : "success"'); 
 });
-//로그인
-router.post('/signin', function(req, res, next){  
-    res.status(201).json('"messeage" : "success"');
+//좋아요
+router.post('/i_like_you', function(req, res, next){   
+    res.status(201).json('"messeage" : "success"'); 
 });
-//로그아웃
-router.post('/signout', function(req, res, next){
-  res.status(201).json('"messeage" : "success"');
-});
-//회원탈퇴
-router.post('/signdel', function(req, res, next){
-  res.status(201).json('"messeage" : "success"');
-});
+
 module.exports = router;
