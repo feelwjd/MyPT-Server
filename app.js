@@ -12,7 +12,7 @@ const port = 8000;
 app.get('/', (req, res) =>{
     res.send('Hello World!')
 })
-
+// 왜안되지
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
