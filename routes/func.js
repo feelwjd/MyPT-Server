@@ -3,6 +3,7 @@ const app = require('../app');
 var router = express.Router();
 const mysql = require('mysql');
 
+
 router.use(function(req, res, next){
     next();
 });
@@ -24,6 +25,7 @@ router.post('/mkroutine', function(req, res, next){
 });
 
 router.post('/picshare', function(req, res, next){
+
     res.status(201).json('"messeage" : "success"');
 });
 module.exports = router;
