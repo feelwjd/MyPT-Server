@@ -30,10 +30,6 @@ const con = mysql.createConnection({
 	database: 'mypt'
 });
 
-con.connect(function(err){
-  if(err) throw err;
-  console.log('Connected');
-});
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
@@ -91,49 +87,6 @@ router.post('/signdel', function(req, res, next){
     con.query(sql, id, function(err, result){
         res.status(201).json('"messeage" : "회원 탈퇴 완료"'); 
     })
-});
-
-//API 전송
-router.post('/user', function(req, res, next){
-  con.query('SELECT * FROM users', (err, results)=>{
-    if(err) {console.log(err);}
-    res.send(results);   
-  });
-});
-
-router.post('/routine', function(req, res, next){
-  con.query('SELECT * FROM routine', (err, results)=>{
-    if(err) {console.log(err);}
-    res.send(results);   
-  });
-});
-
-router.post('/workout', function(req, res, next){
-  con.query('SELECT * FROM workout', (err, results)=>{
-    if(err) {console.log(err);}
-    res.send(results);   
-  });
-});
-
-router.post('/user-routine', function(req, res, next){
-  con.query('SELECT * FROM UserRoutine', (err, results)=>{
-    if(err) {console.log(err);}
-    res.send(results);   
-  });
-});
-
-router.post('/routine-workout', function(req, res, next){
-  con.query('SELECT * FROM RoutineWorkout', (err, results)=>{
-    if(err) {console.log(err);}
-    res.send(results);   
-  });
-});
-
-router.post('/user-routine-workout', function(req, res, next){
-  con.query('SELECT * FROM UserRoutineWorkout', (err, results)=>{
-    if(err) {console.log(err);}
-    res.send(results);   
-  });
 });
 
 module.exports = router;
