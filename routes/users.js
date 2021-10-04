@@ -6,6 +6,7 @@ const e = require('express');
 const multer = require("multer");
 const path = require("path");
 const { isRegExp } = require('util/types');
+const { mountpath } = require('../app');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -30,6 +31,7 @@ const con = mysql.createConnection({
 	database: 'mypt'
 });
 
+var id;
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
@@ -60,7 +62,7 @@ router.post('/signin', function(req, res, next){
     user_id = req.body.userid;
     password = req.body.pw;
     var sql = "select userid, pw from users where userid=?";
-    var id = [user_id];
+    id = [user_id];
     con.query(sql, id, function(err, result){
       if(err){        
         res.status(201).json('"messeage" : "id not found"'); 
@@ -90,3 +92,4 @@ router.post('/signdel', function(req, res, next){
 });
 
 module.exports = router;
+module.exports = id;
