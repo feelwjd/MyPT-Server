@@ -40,11 +40,3 @@ router.post('/set_routine', function(req, res, next){
     res.status(201).json('"messeage" : "success"');
 });
 module.exports = router;
-
-app.get("/routine", (req, res) => {
-  con.query('SELECT * FROM routine', (err, results)=>{
-          if(err)
-                  console.log(err);
-          res.send(results);
-  });
-});

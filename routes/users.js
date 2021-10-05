@@ -3,22 +3,6 @@ const app = require('../app');
 var router = express.Router();
 const mysql = require('mysql');
 const e = require('express');
-const multer = require("multer");
-const path = require("path");
-const { isRegExp } = require('util/types');
-const { mountpath } = require('../app');
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/images/");
-  },
-  function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    cb(null, path.basename(file.originalname, ext) + "-" + Date.now() + ext);
-  },
-});
-
-var upload = multer({ storage: storage });
 
 router.use(function(req, res, next){
     next();
@@ -38,20 +22,20 @@ router.post('/', function(req, res, next) {
     res.status(201).json('"messeage" : "success"'); 
   });
 //회원가입
-router.post('/signup', upload.single("image"), function(req, res, next){  
+router.post('/signup', function(req, res, next){  
     user_id = req.body.userid;
     password = req.body.pw;
     username = req.body.username;
     height = req.body.height;
     weight = req.body.weight;
     sex = req.body.sex;
-    const image = `/images/${req.file.filename}`;
+   
     var sql = "select userid from users where userid=?";
     var id = [user_id];
     con.query(sql, id, function(err, result){
         res.status(201).json('"messeage" : "id exist"'); 
     })
-    con.query("insert into users(userid, pw, username, height, weight, sex) values ('"+user_id+"','"+password+"','"+username+"','"+height+"','"+weight+"','"+sex+"','"+image+"')"
+    con.query("insert into users(userid, pw, username, height, weight, sex) values ('"+user_id+"','"+password+"','"+username+"','"+height+"','"+weight+"','"+sex+"')"
     , function(err, result){
       if (err) throw res.json(err);
       res.json('success');
