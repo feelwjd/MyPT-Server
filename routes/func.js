@@ -2,10 +2,6 @@ var express = require('express');
 const app = require('../app');
 var router = express.Router();
 const mysql = require('mysql');
-const multer = require('multer');
-const upload = multer({
-    dest:'public/images'
-});
 
 
 router.use(function(req, res, next){
