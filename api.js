@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+var router = express.Router();
 const mysql = require('mysql');
 const con = mysql.createConnection({
         host: 'ptdata.ceiotvbr944v.ap-northeast-2.rds.amazonaws.com',
@@ -67,4 +68,4 @@ app.get("/user-routine-workout", (req, res) => {
 
 app.listen(app.get("port"));
 console.log("Listening on", app.get("port"));
-
+module.exports = router;
