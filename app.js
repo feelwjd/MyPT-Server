@@ -9,6 +9,7 @@ var mainRouter = require('./routes/main');
 var funcRouter = require('./routes/func');
 var mypageRouter = require('./routes/mypage');
 var commuRouter = require('./routes/commu');
+var apiRouter = require('./routes/api');
 
 var app = express();
 const port = 8000;
@@ -46,6 +47,7 @@ app.use('/main', mainRouter);
 app.use('/func', funcRouter);
 app.use('/mypage', mypageRouter);
 app.use('/commu', commuRouter);
+app.use('/api', apiRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

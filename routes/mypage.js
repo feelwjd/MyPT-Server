@@ -24,6 +24,15 @@ router.post('/beforeafter', function(req, res, next){
 });
 //루틴생성기
 router.post('/produce_routine', function(req, res, next){
+    routine_id = req.body.routineid;
+    routinename = req.body.routinename;
+    description = req.body.description;
+    
+    con.query("insert into routine(routineid, routinename, description) values ('"+routine_id+"','"+routinename+"','"+description+"')"
+    , function(err, result){
+      if (err) throw res.json(err);
+      res.json('success');
+    })    
     res.status(201).json('"messeage" : "success"');
 });
 //루틴설정
