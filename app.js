@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const router = express.Router();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -51,3 +52,4 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
 module.exports = app;
+module.exports = router;
