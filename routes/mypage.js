@@ -33,7 +33,6 @@ router.post('/produce_routine', function(req, res, next){
       if (err) throw res.json(err);
       res.json('success');
     })    
-    res.status(201).json('"messeage" : "success"');
 });
 //루틴설정
 router.post('/set_routine', function(req, res, next){
