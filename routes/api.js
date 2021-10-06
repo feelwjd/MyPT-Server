@@ -19,7 +19,7 @@ router.use(function(req, res, next){
         next();
     });
     
-
+//Mysql 데이터
 router.post("/routine", function(req, res, next) {
         con.query('SELECT * FROM routine', function(err, results){
                 if(err)
