@@ -15,9 +15,6 @@ const con = mysql.createConnection({
 	database: 'mypt'
 });
 
-router.use(function(req, res, next){
-        next();
-    });
     
 //Mysql 데이터
 router.post("/routine", function(req, res, next) {
@@ -27,9 +24,11 @@ router.post("/routine", function(req, res, next) {
                 res.send(results);
         });
 });
-
+//사용자 정보
 router.post("/user", function(req, res, next){
-        con.query('SELECT * FROM users', function(err, results){
+        userid = req.body.userid
+        let sql = "SELECT * FROM users where userid IN ('" + userid+ "')";
+        con.query(sql, function(err, results){
                 if(err)
                         console.log(err);
                 res.send(results);
@@ -43,13 +42,15 @@ router.post("/workout",function(req, res, next){
                 res.send(results);
         });
 });
-
+//사용자의 루틴 데이터
 router.post("/user-routine", function(req, res, next) {
-    con.query('SELECT * FROM UserRoutine', function(err, results){
-            if(err)
-                    console.log(err);
-            res.send(results);
-     });
+        userid = req.body.userid;
+        let sql = "SELECT * FROM UserRoutine where userid IN ('" + userid+ "')";
+        con.query(sql, function(err, results){
+                if(err)
+                        console.log(err);
+                res.send(results);
+        });
 });
 
 router.post("/routine-workout", function(req, res, next) {
@@ -59,13 +60,27 @@ router.post("/routine-workout", function(req, res, next) {
             res.send(results);
      });
 });
-
+//사용자의 Routine & Workout 데이터
 router.post("/user-routine-workout", function(req, res, next) {
-    con.query('SELECT * FROM UserRoutineWorkout', function(err, results){
-            if(err)
-                    console.log(err);
-            res.send(results);
-     });
+        userid = req.body.userid;
+        let sql = "SELECT * FROM UserRoutine where userid IN ('" + userid+ "')";
+        let urw_id = [];
+        con.query(sql, function(err ,results){
+                if(err)
+                        console.log(err);
+                for(var i = 0; i<results.length; i++){
+                        urw_id.push(results[i].UserRoutineId);
+                }
+                
+                let urw_sql = "SELECT * FROM UserRoutineWorkout where UserRoutineId IN (";
+                urw_sql += urw_id;
+                urw_sql += ")";
+                con.query(urw_sql, function(err, results){
+                        if(err)
+                                console.log(err);
+                        res.send(results);
+                });
+        });
 });
 
 module.exports = router;
