@@ -17,6 +17,7 @@ var upload = multer({ storage: storage })
 
 
 
+
 router.use(function(req, res, next){
     next();
 });
@@ -53,11 +54,17 @@ router.post('/mkroutine', function(req, res, next){
     res.status(201).json('"messeage" : "success"');
 });
 
+<<<<<<< HEAD
 router.post('/picshare', upload.single('image'), (req, res) =>{
     let image = req.file.path;
     console.log(req.file);
     console.log(image);
     res.status(201).json(image); 
+=======
+router.post('/picshare', function(req, res, next){
+
+    res.status(201).json('"messeage" : "success"');
+>>>>>>> 0527579937272424f83f4e57288d05a7b46f11d1
 });
 
 
