@@ -32,12 +32,13 @@ router.post('/signup', function(req, res, next){
     height = req.body.height;
     weight = req.body.weight;
     sex = req.body.sex;
+    image = req.body.image;
     var sql = "select userid from users where userid=?";
     var id = [user_id];
     con.query(sql, id, function(err, result){
         res.status(201).json('"messeage" : "id exist"'); 
     })
-    con.query("insert into users(userid, pw, username, height, weight, sex) values ('"+user_id+"','"+password+"','"+username+"','"+height+"','"+weight+"','"+sex+"')"
+    con.query("insert into users(userid, pw, username, height, weight, sex, image) values ('"+user_id+"','"+password+"','"+username+"','"+height+"','"+weight+"','"+sex+"','"+image+"')"
     , function(err, result){
       if (err) throw res.json(err);
       res.json('success');
