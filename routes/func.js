@@ -38,7 +38,6 @@ router.GET('/', function(req, res, next) {
     var count = req.body.count; // 1분 몇개인지
     var weight = req.body.weight;
     var userid = req.body.userid;
-    var calories = req.body.calories;
     var today = new Date();
     var day = now.getData();
     var total_cal = ((21 * weight)*0.0005) * count; // 1분운동한 칼로리
@@ -54,17 +53,11 @@ router.post('/mkroutine', function(req, res, next){
     res.status(201).json('"messeage" : "success"');
 });
 
-<<<<<<< HEAD
 router.post('/picshare', upload.single('image'), (req, res) =>{
     let image = req.file.path;
     console.log(req.file);
     console.log(image);
     res.status(201).json(image); 
-=======
-router.post('/picshare', function(req, res, next){
-
-    res.status(201).json('"messeage" : "success"');
->>>>>>> 0527579937272424f83f4e57288d05a7b46f11d1
 });
 
 
