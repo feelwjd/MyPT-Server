@@ -34,7 +34,7 @@ router.post("/user", function(req, res, next){
                 res.send(results);
          });
 });
-
+//전체 운동 데이터
 router.post("/workout",function(req, res, next){
         con.query('SELECT * FROM workout', function(err, results){
                 if(err)
@@ -42,6 +42,19 @@ router.post("/workout",function(req, res, next){
                 res.send(results);
         });
 });
+//기구 필요 유무 운동
+router.post("/workout-class",function(req, res, next){
+        workout_class = req.body.workout_class;
+        let sql = "SELECT * FROM workout where class in (";
+        sql += workout_class;
+        sql += ")";
+        con.query(sql, function(err, results){
+                if(err)
+                        console.log(err);
+                res.send(results);
+        });
+});
+
 //사용자의 루틴 데이터
 router.post("/user-routine", function(req, res, next) {
         userid = req.body.userid;
