@@ -55,8 +55,6 @@ router.post('/mkroutine', function(req, res, next){
 
 router.post('/picshare', upload.single('image'), (req, res) =>{
     let image = req.file.path;
-    console.log(req.file);
-    console.log(image);
     res.status(201).json(image); 
 });
 

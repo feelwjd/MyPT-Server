@@ -56,7 +56,13 @@ router.post('/signup', upload.single("image"), function(req, res, next){
     , function(err, result){
       if (err) throw res.json(err);
       res.json('success');
-    })    
+    })   
+    con.query("insert into UserBeforeAfter(userid, before, weight, height) values('"+user_id+"','"+image+"','"+height+"','"+weight+"')"
+    , function(err, result){
+      if (err) throw res.json(err);
+      res.json('sucesss');
+    }
+    ) 
 });
 //로그인 get
 router.get('/signup', function(req, res, next) {
@@ -95,7 +101,7 @@ router.post('/signin', function(req, res, next){
 router.post('/signout', function(req, res, next){
   
 });
-//회원탈퇴
+//회원탈퇴 // 수정하기
 router.post('/signdel', function(req, res, next){
   user_id = req.body.userid;
   var sql = "delete from users where userid=?";
