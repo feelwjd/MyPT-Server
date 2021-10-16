@@ -74,7 +74,7 @@ router.post('/signin', function(req, res, next){
     })   
 });
 //로그아웃
-router.post('/signout', function(req, res, next){
+router.post('/signout', function(req, res, next){ 
   
 });
 //회원탈퇴
