@@ -96,4 +96,28 @@ router.post("/user-routine-workout", function(req, res, next) {
         });
 });
 
+router.post("/users", function(req, res, next) {
+        con.query('SELECT * FROM users', function(err, results){
+                if(err)
+                        console.log(err);
+                res.send(results);
+        });
+});
+
+router.post("/users-routine", function(req, res, next) {
+        con.query('SELECT * FROM UserRoutine', function(err, results){
+                if(err)
+                        console.log(err);
+                res.send(results);
+        });
+});
+
+router.post("/users-routine-workout", function(req, res, next) {
+        con.query('SELECT * FROM UserRoutineWorkout', function(err, results){
+                if(err)
+                        console.log(err);
+                res.send(results);
+        });
+});
+
 module.exports = router;
