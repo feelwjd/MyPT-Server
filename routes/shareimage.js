@@ -14,9 +14,10 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('image');
 
 var fs = require('fs');
-var gm = require('gm');
+var gm = require('gm'); // graphics magick use
 var resizeX = 1080
-  , resizeY = 1080;
+  , resizeY = 1080;     // 1080x1080 resize
+
 
 /* GET home page. */
 router.post('/image',upload, function(req, res, next) {
@@ -24,12 +25,12 @@ router.post('/image',upload, function(req, res, next) {
   gm(req.file.path)
     .resize(resizeX, resizeY)
     .fill('#ffffff')
-    .font('public/font/BMJUA_ttf.ttf', 30)
-    .drawText(225,75,"MyPT")
+    .font('public/font/BMJUA_ttf.ttf', 30)  // 폰트 설정
+    .drawText(225,75,"MyPT")                // 텍스트 주입
     .write('public/shareimage/'+jpgname ,function(err){
       if(err){console.log(err);}  
       else{
-        fs.readFile('public/shareimage/'+jpgname, function(err,data){
+        fs.readFile('public/shareimage/'+jpgname, function(err,data){   // 편집한 이미지 반환
           if(err) throw err;
           res.writeHead(200, {"Context-Type": "image/jpg"});
           res.write(data);
