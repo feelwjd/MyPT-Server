@@ -31,19 +31,9 @@ router.post('/image',upload, function(req, res, next) {
   if(err)
             console.log(err);
   })
-  res.send(jpgname);
-  res.redirect('/imageEdit')
-});
-
-router.post('/imageEdit',function(req,res,nex){
-  jpgname = req.body.jpgname;
-  fs.readFile(jpgname,
-    function(err,data){
-      res.writeHead(200, {"Context-Type": "image/jpg"})
-      res.write(data);
-      res.end();
-      }
-    )
+  res.writeHead(200, {"Context-Type": "image/jpg"})
+  res.write(jpgname);
+  res.end();
 });
 
 module.exports = router;
