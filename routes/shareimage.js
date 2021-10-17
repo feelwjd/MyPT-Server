@@ -31,7 +31,7 @@ router.post('/image',upload, function(req, res, next) {
             console.log(err);
   
   var name = req.file.fieldname + '-'+ Date.now()+'.jpg';
-  fs.readFiel(name,
+  fs.readFile(name,
     function(err,data){
       res.writeHead(200, {"Context-Type": "image/jpg"})
       res.write(data);
