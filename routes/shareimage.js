@@ -20,7 +20,7 @@ var resizeX = 1080
 
 /* GET home page. */
 router.post('/image',upload, function(req, res, next) {
-  var jpgname = req.file.fieldname+'.jpg';
+  var jpgname = req.file.fieldname + '-'+ Date.now()+'.jpg';
   gm(req.file.path)
     .resize(resizeX, resizeY)
     .fill('#ffffff')
