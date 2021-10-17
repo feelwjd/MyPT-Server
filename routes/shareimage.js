@@ -41,7 +41,7 @@ router.post('/image',upload, function(req, res, next) {
   //res.writeHead(200, {"Context-Type": "image/jpg"})
   //res.download('public/shareimage/',jpgname);
   //res.end(jpgname);
-  res.render('/imageshare',{jpgname:'jpgname'});
+  res.render('/imageshare',{jpgname:jpgname});
 });
 
 router.post('/imageshare',function(req,res,next){
