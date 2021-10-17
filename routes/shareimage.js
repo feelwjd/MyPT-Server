@@ -19,9 +19,9 @@ var gm = require('gm');
 var resizeX = 1080
   , resizeY = 1080;
 
+var jpgname = req.file.fieldname + '-'+ Date.now()+'.jpg';
 /* GET home page. */
 router.post('/image',upload, function(req, res, next) {
-  var jpgname = req.file.fieldname + '-'+ Date.now()+'.jpg';
   gm(req.file.path)
     .resize(resizeX, resizeY)
     .fill('#ffffff')
@@ -41,12 +41,10 @@ router.post('/image',upload, function(req, res, next) {
   //res.writeHead(200, {"Context-Type": "image/jpg"})
   //res.download('public/shareimage/',jpgname);
   //res.end(jpgname);
-  testjson = {"jpgname":jpgname};
-  res.render('/imageshare',testjson);
+  res.render('/imageshare');
 });
 
 router.post('/imageshare',function(req,res,next){
-  jpgname = req.body.jpgname;
   fs.readFile('public/shareimage/'+jpgname, function(err,data){
     if(err) throw err;
     res.writeHead(200, {"Context-Type": "image/jpg"});
