@@ -27,15 +27,17 @@ router.post('/image',upload, function(req, res, next) {
     .font('public/font/BMJUA_ttf.ttf', 30)
     .drawText(225,75,"MyPT")
     .write('public/shareimage/'+jpgname ,function(err){
-      if(err)
-            console.log(err);
+      if(err){console.log(err);}  
+      else{
+        fs.readFile('public/shareimage/'+jpgname, function(err,data){
+          if(err) throw err;
+          res.writeHead(200, {"Context-Type": "image/jpg"});
+          res.write(data);
+          res.end();
+        });
+      }
     })
-  fs.readFile('public/shareimage/'+jpgname, function(err,data){
-    if(err) throw err;
-    res.writeHead(200, {"Context-Type": "image/jpg"});
-    res.write(data);
-    res.end();
-  })
+  
   //res.setHeader('Content-Disposition', `attachment; filename = ${jpgname}`);
   //res.writeHead(200, {"Context-Type": "image/jpg"})
   //res.download('public/shareimage/',jpgname);
