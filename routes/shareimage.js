@@ -32,7 +32,7 @@ router.post('/image',upload, function(req, res, next) {
       if(err)
             console.log(err);
     })
-  fs.readFile('public/shareimage/'+jpgname, function(err,data){
+  fs.readFile('/public/shareimage/'+jpgname, function(err,data){
     if(err) throw err;
     res.writeHead(200, {"Context-Type": "image/jpg"});
     res.write(data);
@@ -42,7 +42,7 @@ router.post('/image',upload, function(req, res, next) {
   //res.writeHead(200, {"Context-Type": "image/jpg"})
   //res.download('public/shareimage/',jpgname);
   //res.end(jpgname);
-  res.render('/imageshare');
+  //res.render('/imageshare');
 });
 
 module.exports = router;
