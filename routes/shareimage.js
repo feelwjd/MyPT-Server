@@ -26,12 +26,18 @@ router.post('/image',upload, function(req, res, next) {
     .fill('#ffffff')
     .font('public/font/BMJUA_ttf.ttf', 30)
     .drawText(225,75,"MyPT")
-    .write('public/shareimage/'+req.file.fieldname + '-'+ Date.now()+'.jpg' ,function(err,data){
+    .write('public/shareimage/'+req.file.fieldname + '-'+ Date.now()+'.jpg' ,function(err){
   if(err)
             console.log(err);
-  res.writeHead(200, {"Context-Type": "image/jpg"})
-  res.write(data);
-  res.end();
+  
+  var name = req.file.fieldname + '-'+ Date.now()+'.jpg';
+  fs.readFiel(name,
+    function(err,data){
+      res.writeHead(200, {"Context-Type": "image/jpg"})
+      res.write(data);
+      res.end();
+      }
+    )
   })
 });
 
