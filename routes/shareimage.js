@@ -26,10 +26,10 @@ router.post('/image',upload, function(req, res, next) {
     .fill('#ffffff')
     .font('public/font/BMJUA_ttf.ttf', 30)
     .drawText(225,75,"MyPT")
-    .write('public/images/'+req.file.filename + '-'+ Date.now()+'.jpg' ,function(err){
+    .write('public/images/'+req.file.filename + '-'+ Date.now()+'.jpg' ,function(err,results){
   if(err)
             console.log(err);
-  console.log('done')
+  res.send(results);
   })
 });
 
