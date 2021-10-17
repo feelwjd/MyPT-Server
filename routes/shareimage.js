@@ -30,7 +30,7 @@ router.post('/image',upload, function(req, res, next) {
     .write('public/shareimage/'+jpgname ,function(err){
       if(err){console.log(err);}  
       else{
-        fs.readFile('public/shareimage/'+jpgname, function(err,data){   // 편집한 이미지 반환
+        fs.readFile('public/shareimage/'+jpgname, function(err,data){   // 편집한 이미지 반환하여 보여주기
           if(err) throw err;
           res.writeHead(200, {"Context-Type": "image/jpg"});
           res.write(data);
