@@ -21,6 +21,7 @@ var resizeX = 1080
 
 /* GET home page. */
 router.post('/image',upload, function(req, res, next) {
+  var jpgname = 'public/shareimage/'+req.file.fieldname + '-'+ Date.now()+'.jpg'
  gm(req.file.path)
     .resize(resizeX, resizeY)
     .fill('#ffffff')
@@ -29,16 +30,10 @@ router.post('/image',upload, function(req, res, next) {
     .write('public/shareimage/'+req.file.fieldname + '-'+ Date.now()+'.jpg' ,function(err){
   if(err)
             console.log(err);
-  
-  var name = req.file.fieldname + '-'+ Date.now()+'.jpg';
-  fs.readFile(name,
-    function(err,data){
-      res.writeHead(200, {"Context-Type": "image/jpg"})
-      res.write(data);
-      res.end();
-      }
-    )
   })
+  res.writeHead(200, {"Context-Type": "image/jpg"})
+  res.write(jpgname);
+  res.end();
 });
 
 module.exports = router;
