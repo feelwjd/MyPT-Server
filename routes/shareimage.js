@@ -34,7 +34,8 @@ router.post('/image',upload, function(req, res, next) {
   res.redirect('/imageEdit',{jpgname:'jpgname'})
 });
 
-router.post('/imageEdit',jpgname,function(req,res,nex){
+router.post('/imageEdit',function(req,res,nex){
+  jpgname = req.body.jpgname;
   fs.readFile(jpgname,
     function(err,data){
       res.writeHead(200, {"Context-Type": "image/jpg"})
