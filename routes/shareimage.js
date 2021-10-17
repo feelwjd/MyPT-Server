@@ -31,7 +31,8 @@ router.post('/image',upload, function(req, res, next) {
   if(err)
             console.log(err);
   })
-  res.redirect('/imageEdit',{jpgname:'jpgname'})
+  res.send(jpgname);
+  res.redirect('/imageEdit')
 });
 
 router.post('/imageEdit',function(req,res,nex){
