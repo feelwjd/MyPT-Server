@@ -32,7 +32,7 @@ router.post('/image',upload, function(req, res, next) {
       if(err)
             console.log(err);
     })
-  fs.readFile('/public/shareimage/'+jpgname, function(err,data){
+  fs.readFile('public/shareimage/image-1634482074609.jpg', function(err,data){
     if(err) throw err;
     res.writeHead(200, {"Context-Type": "image/jpg"});
     res.write(data);
