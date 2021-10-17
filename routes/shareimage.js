@@ -11,7 +11,7 @@ var storage = multer.diskStorage({
     cb(null, file.fieldname + '-' + Date.now()+'.jpg');
   }
 });
-
+var remembername;
 var upload = multer({ storage: storage }).single('image');
 
 var fs = require('fs');
@@ -19,9 +19,10 @@ var gm = require('gm');
 var resizeX = 1080
   , resizeY = 1080;
 
-var jpgname = req.file.fieldname + '-'+ Date.now()+'.jpg';
 /* GET home page. */
 router.post('/image',upload, function(req, res, next) {
+  var jpgname = req.file.fieldname + '-'+ Date.now()+'.jpg';
+  remembername = jpgname;
   gm(req.file.path)
     .resize(resizeX, resizeY)
     .fill('#ffffff')
@@ -45,7 +46,7 @@ router.post('/image',upload, function(req, res, next) {
 });
 
 router.post('/imageshare',function(req,res,next){
-  fs.readFile('public/shareimage/'+jpgname, function(err,data){
+  fs.readFile('public/shareimage/'+remembername, function(err,data){
     if(err) throw err;
     res.writeHead(200, {"Context-Type": "image/jpg"});
     res.write(data);
