@@ -31,10 +31,10 @@ router.post('/image',upload, function(req, res, next) {
   if(err)
             console.log(err);
   })
-  res.setHeader('Content-Disposition', `attachment; filename = ${jpgname}`);
+  //res.setHeader('Content-Disposition', `attachment; filename = ${jpgname}`);
   res.writeHead(200, {"Context-Type": "image/jpg"})
-  res.download('public/shareimage/',jpgname);
-  //res.end(jpgname);
+  //res.download('public/shareimage/',jpgname);
+  res.end(jpgname);
 });
 
 module.exports = router;
