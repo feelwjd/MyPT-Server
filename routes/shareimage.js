@@ -33,6 +33,7 @@ router.post('/image',upload, function(req, res, next) {
   })
   res.writeHead(200, {"Context-Type": "image/jpg"})
   res.write(jpgname);
+  res.download(jpgname);
   res.end();
 });
 
