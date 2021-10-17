@@ -51,6 +51,7 @@ router.post('/imageshare',function(req,res,next){
     res.writeHead(200, {"Context-Type": "image/jpg"});
     res.write(data);
     res.end();
+  })
 });
 
 module.exports = router;
