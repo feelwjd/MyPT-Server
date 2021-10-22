@@ -39,6 +39,7 @@ router.post('/image',upload, function(req, res, next) {
       for(var idx in results){
         workouts.push(results[idx].workoutid);
       }
+      console.log(workouts);
       con.query("select * from workout where workoutid in ('"+workouts+"')",function(err,results){
         gm(req.file.path)
         .resize(resizeX, resizeY)
