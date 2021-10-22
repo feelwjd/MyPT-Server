@@ -38,7 +38,8 @@ router.post('/image',upload, function(req, res, next) {
     if (err) throw err;
     else{
       for(var idx in results){
-        workouts.push("'"+results[idx].workoutid+"'");
+        let test = "'"+results[idx].workoutid+"'"
+        workouts.push(test);
       }
       console.log(workouts);
       con.query("select * from workout where workoutid in ('"+workouts+"')",function(err,results){
