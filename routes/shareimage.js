@@ -33,6 +33,7 @@ router.post('/image',upload, function(req, res, next) {
   let userid = req.body.userid;
   let selectroutine = req.body.userroutineid;
   let workouts = [];
+  let workoutlist = [];
   con.query("select * from UserRoutineWorkout where UserRoutineId in ('"+selectroutine+"')",function(err,results){
     if (err) throw err;
     else{
@@ -41,12 +42,15 @@ router.post('/image',upload, function(req, res, next) {
       }
       console.log(workouts);
       con.query("select * from workout where workoutid in ('"+workouts+"')",function(err,results){
+        for(var idx in results){
+          workoutlist.push(results[idx].workoutname);
+        }
         gm(req.file.path)
         .resize(resizeX, resizeY)
         .fill('#ffffff')
         .font('public/font/BMJUA_ttf.ttf', 50).drawText(75,75,"MyPT")   // 폰트 설정// 텍스트 주입
         .font('public/font/BMJUA_ttf.ttf', 40).drawText(75,800,"오늘의 루틴")               
-        .font('public/font/BMJUA_ttf.ttf', 30).drawText(75,900,""+results.workoutname+"")
+        .font('public/font/BMJUA_ttf.ttf', 30).drawText(75,900,""+workoutlist+"")
         .write('public/shareimage/'+jpgname ,function(err){
           if(err){console.log(err);}  
           else{
