@@ -98,7 +98,7 @@ router.post("/user-routine-workout", function(req, res, next) {
 // 사용자에 따른 루틴의 필요한 정보 출력
 router.post("/routine-info",function(req,res,next){
         userid = req.body.userid;
-        con.query("select A.userid, A.routineid, A.RoutineDate, A.Time, B.workoutid, C.routinename, C.description from UserRoutine A inner join UserRoutineWorkout B on A.UserRoutineId = B.UserRoutineId inner join routine C on A.routineid = C.routineid where A.userid in  ('"+userid+"')",function(err,results){
+        con.query("select A.userid, A.routineid, A.RoutineDate, A.Time, B.workoutid, C.routinename, C.description, D.workoutname from UserRoutine A inner join UserRoutineWorkout B on A.UserRoutineId = B.UserRoutineId inner join routine C on A.routineid = C.routineid inner join workout D on D.workoutid = B.workoutid where A.userid in ('"+userid+"') order by A.routineid",function(err,results){
                 res.send(results);
         });
 })
