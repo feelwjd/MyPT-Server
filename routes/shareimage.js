@@ -58,7 +58,7 @@ router.post('/image',upload, function(req, res, next) {
         });
       }
     })
-  
+  console.log(workouts);
   //res.setHeader('Content-Disposition', `attachment; filename = ${jpgname}`);
   //res.writeHead(200, {"Context-Type": "image/jpg"})
   //res.download('public/shareimage/',jpgname);
