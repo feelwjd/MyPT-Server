@@ -25,8 +25,8 @@ router.post('/image',upload, function(req, res, next) {
   gm(req.file.path)
     .resize(resizeX, resizeY)
     .fill('#ffffff')
-    .font('public/font/BMJUA_ttf.ttf', 30)  // 폰트 설정
-    .drawText(225,75,"MyPT")                // 텍스트 주입
+    .font('public/font/BMJUA_ttf.ttf', 50).drawText(75,75,"MyPT")   // 폰트 설정// 텍스트 주입
+    .font('public/font/BMJUA_ttf.ttf', 40).drawText(75,800,"오늘의 루틴")               
     .write('public/shareimage/'+jpgname ,function(err){
       if(err){console.log(err);}  
       else{
