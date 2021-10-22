@@ -37,7 +37,7 @@ router.post('/image',upload, function(req, res, next) {
     if (err) throw err;
     else{
       for(idx in results){
-        workouts.push(results[idx].workoutid);
+        workouts.push(results[idx]);
       }
     }
   });
