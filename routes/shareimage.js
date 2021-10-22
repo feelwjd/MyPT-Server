@@ -32,11 +32,11 @@ router.post('/image',upload, function(req, res, next) {
   var jpgname = req.file.fieldname + '-'+ Date.now()+'.jpg';
   let userid = req.body.userid;
   let selectroutine = req.body.userroutineid;
-  let workouts = []
+  let workouts = [];
   con.query("select * from UserRoutineWorkout where UserRoutineId in ('"+selectroutine+"')",function(err,results){
     if (err) throw err;
     else{
-      for(idx in results){
+      for(var idx in results){
         workouts.push(results[idx].workoutid);
       }
     }
