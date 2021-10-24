@@ -95,5 +95,11 @@ router.post("/user-routine-workout", function(req, res, next) {
                 });
         });
 });
-
+// 사용자에 따른 루틴의 필요한 정보 출력
+router.post("/routine-info",function(req,res,next){
+        userid = req.body.userid;
+        con.query("select A.userid, A.routineid, A.UserRoutineId, A.RoutineDate, A.Time, group_concat(B.workoutid) as workoutid, C.routinename, C.description, group_concat(D.workoutname) as workoutname from UserRoutine A inner join UserRoutineWorkout B on A.UserRoutineId = B.UserRoutineId inner join routine C on A.routineid = C.routineid inner join workout D on D.workoutid = B.workoutid  where A.userid in ('"+userid+"') group by B.UserRoutineId",function(err,results){
+                res.send(results);
+        });
+})
 module.exports = router;
