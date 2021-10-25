@@ -59,6 +59,9 @@ router.post('/image',upload, function(req, res, next) {
               res.writeHead(200, {"Context-Type": "image/jpg"});
               res.write(data);
               res.end();
+              con.query("insert into commuity(userid, imagename) values('"+userid+"','"+jpgname+"')",function(err,results){
+                if (err) throw err;
+              });
             });
           }
         })
