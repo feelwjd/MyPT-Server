@@ -17,17 +17,37 @@ const port = 8000;
 const mysql = require('mysql');
 const {response} = require('express')
 
-const con = mysql.createConnection({
-	host: 'ptdata.ceiotvbr944v.ap-northeast-2.rds.amazonaws.com',
-	user: 'mypt',
-	password: '12345678',
-	database: 'mypt'
-});
-
-con.connect(function(err){
-    if(err) throw err;
-    console.log('Connected');
-});
+function connect() {
+    const db = mysql.createConnection({
+      host: 'ptdata.ceiotvbr944v.ap-northeast-2.rds.amazonaws.com',
+      user: 'mypt',
+      password: '12345678',
+      database: 'mypt',
+      multipleStatements: true,
+    });
+  
+    db.connect(err => {
+      if (err) {
+        console.log(err.message);
+        setTimeout(connect(), 2000);
+      }
+      console.log("Connect!!")
+    });
+  
+    // mysql 에러 발생 시 실행됨
+    db.on('error', err => {
+      console.log(err.message);
+  
+      // 장시간 미사용으로 연결이 끊겼을 때
+      if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        return connect();
+      } else {
+        throw err;
+      }
+    });
+  };
+  
+connect();
 
 app.get('/', (req, res) =>{
    con.query('Show databases;', function(err, result){
