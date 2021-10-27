@@ -38,7 +38,7 @@ router.post('/share', function(req, res, next){
             var image = result1[0].image;
 
             data = {commudescript, image, heart}
-            res.json(data);
+            res.status(201).json(data);
         })
     })
 });
