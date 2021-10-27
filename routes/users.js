@@ -43,6 +43,7 @@ router.post('/signup', upload.single("image"), function(req, res, next){
   height = req.body.height;
   weight = req.body.weight;
   sex = req.body.sex;
+  //picshare를 거쳐서 이미 경로화됨
   image = req.body.image;
   var sql = "select userid from users where userid=?;";
   var id = [user_id];
@@ -56,25 +57,15 @@ router.post('/signup', upload.single("image"), function(req, res, next){
           console.log(err);
         }
       })
-      console.log(111);    
+      res.status(201).json('"messeage" : "회원 가입 완료"');     
   })
-  // con.query("insert into users(userid, pw, username, height, weight, sex, image) values ('"+user_id+"','"+password+"','"+username+"','"+height+"','"+weight+"','"+sex+"','"+image+"')"
-  // , function(err, result){
-  //   if (err) throw res.json(err);   
-  //   res.json('sucesss');
-  // })   
- 
-  // con.query("insert into UserBeforeAfter(userid, before, weight, height) values('"+user_id+"','"+image+"','"+height+"','"+weight+"')"
-  // , function(err, result){
-  //   if (err) throw res.json(err);
-  // }) 
-  // res.json('sucesss');
+  
 });
 //로그인
 router.post('/signin', function(req, res, next){  
     user_id = req.body.userid;
     password = req.body.pw;
-    var sql = "select userid, pw from users where userid=?";
+    var sql = "select userid, pw, weight from users where userid=?";
     var id = [user_id];
     con.query(sql, id, function(err, result){
       if(err){        
@@ -95,13 +86,73 @@ router.post('/signout', function(req, res, next){
   
 });
 //회원탈퇴
-router.post('/signdel', function(req, res, next){
+router.delete('/signdel', function(req, res, next){
   user_id = req.body.userid;
-  var sql = "delete from users where userid=?";
-    var id = [user_id];
-    con.query(sql, id, function(err, result){
-        res.status(201).json('"messeage" : "회원 탈퇴 완료"'); 
-    })
+  password = req.body.pw;
+  var sql2 = "select pw from users where userid=?"
+  con.query(sql2, [user_id], function(err,result){
+    if(err){
+      console.log(err);
+    }
+    else{
+      if(password == result[0].pw){
+        var sql = "select userRoutineId from UserRoutine where userid =?"
+        con.query(sql, [user_id], function(err, result){
+          if(err){
+            console.log(err);
+          }
+          
+          for(var i= 0;i <result.length; i++){
+            var sql2 = "delete from UserRoutineWorkout where UserRoutineId=?"
+            con.query(sql2, [result[i].userRoutineId], function(err,result){
+              if(err){
+                console.log(err)
+              }
+            })
+          }
+          var sql3 = "delete from UserRoutine where userid=?"
+          con.query(sql3, [user_id], function(err, result){
+            if(err){
+              console.log(err)
+            }
+            var sql4 = "delete from calories where userid=?"
+            con.query(sql4, [user_id], function(err, result){
+              if(err){
+                console.log(err)
+              }
+              var sql5 = "delete from community where userid=?"
+              con.query(sql5, [user_id], function(err, result){
+                if(err){
+                  console.log(err)
+                }
+                var sql6 = "delete from UserBeforeAfter where userid=?"
+                con.query(sql6, [user_id], function(err, result){
+                  if(err){
+                    console.log(err)
+                  }
+                  var sql7 = "delete from users where userid=?"
+                  con.query(sql7, [user_id], function(err, result){
+                    if(err){
+                      console.log(err)
+                    }
+                    res.status(201).json('"messeage" : "회원 탈퇴 완료"'); 
+                  })
+                })
+              })
+            })
+          })
+          
+        })
+      }
+      else{
+        res.status(404).json('"messeage" : "delete denied"'); 
+      }
+    }
+    
+
+    
+  })
+  
 });
 
 module.exports = router;

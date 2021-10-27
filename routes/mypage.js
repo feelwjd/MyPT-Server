@@ -57,7 +57,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "success"');
+          res.status(201).json('"messeage" : "수정완료"');
         })
       }
       else{
@@ -67,7 +67,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "success"');
+          res.status(201).json('"messeage" : "수정완료"');
         })
       }
     }
@@ -78,7 +78,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "success"');
+          res.status(201).json('"messeage" : "수정완료"');
         })
     }
   }
@@ -92,7 +92,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "success"');
+          res.status(201).json('"messeage" : "수정완료"');
         })
       }
       else{
@@ -102,7 +102,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "success"');
+          res.status(201).json('"messeage" : "수정완료"');
         })
       }
     }
@@ -113,7 +113,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "success"');
+          res.status(201).json('"messeage" : "수정완료"');
         })
     }
   }
