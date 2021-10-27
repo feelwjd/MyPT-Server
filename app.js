@@ -49,12 +49,12 @@ function connect() {
   
 connect();
 
-app.get('/', (req, res) =>{
-   con.query('Show databases;', function(err, result){
-       if(err) throw err;
-       res.send(result);
-   })
-})
+//app.get('/', (req, res) =>{
+//   con.query('Show databases;', function(err, result){
+//       if(err) throw err;
+//       res.send(result);
+//   })
+//})
 // 왜안되지
 app.use(logger('dev'));
 app.use(express.json());
