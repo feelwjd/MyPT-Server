@@ -9,12 +9,13 @@ var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/images/");
   },
-  function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    cb(null, path.basename(file.originalname, ext) + "-" + Date.now() + ext);
-  },
+  filename: function(req,file,cb){
+    cb(null, file.originalname);
+  }
 });
 var upload = multer({ storage: storage });
+
+
 router.use(function(req, res, next){
     next();
 });
@@ -34,14 +35,18 @@ router.post('/', function(req, res, next) {
 router.post('/calories_cal', function(req, res, next) {
     var count = req.body.count; // 1분 몇개인지
     var weight = req.body.weight;
-    var userid = req.body.userid;
+    var user_id = req.body.userid;
     var today = new Date();
-    var day = now.getData();
+    var day = today.getDate();
     var total_cal = ((21 * weight)*0.0005) * count; // 1분운동한 칼로리
-    let sql = 'INSERT INTO calories, day VALUES where userid=?'
-    let params = [userid];
-    con.query(sql , params, function(err, result){
-        res.status(201).json('"messeage" : "success"'); 
+    console.log(total_cal.toFixed(3));
+    console.log(day);
+    let sql = "INSERT INTO calories(userid, calories, date) VALUES ('"+user_id+"','"+total_cal.toFixed(3)+"', '"+day+"')"
+    con.query(sql, function(err, result){
+      if(err){
+        console.log(err)
+      }
+        res.status(201).json('"현재 소모한 칼로리 " : "'+total_cal.toFixed(3)+'"'); 
     })
     
 });
