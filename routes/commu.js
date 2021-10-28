@@ -64,5 +64,13 @@ router.put('/heart', function(req, res, next){
     })
     
 });
-
+router.get('/share_show_all', function(req, res, next) {
+    var sql= "select * from community"
+    con.query(sql, function(err, result){
+        if(err){
+            console.log(err)
+        }
+        res.status(201).json(result); 
+    })
+  });
 module.exports = router;
