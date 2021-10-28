@@ -24,7 +24,7 @@ router.post("/routine", function(req, res, next) {
                 res.send(results);
         });
 });
-//전체 사용자 정보
+//전체 정보
 router.post("/users", function(req, res, next){
         let sql = "SELECT * FROM users";
         con.query(sql, function(err, results){
