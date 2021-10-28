@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
     cb(null, './public/images/');
   },
   filename: function(req,file,cb){
-    cb(null, file.fieldname + '-' + Date.now()+'.jpg');
+    cb(null, file.originalname);
   }
 });
 var upload = multer({ storage: storage }).single('image');
@@ -29,7 +29,7 @@ var resizeX = 1080
 
 /* GET home page. */
 router.post('/image',upload, function(req, res, next) {
-  var jpgname = req.file.fieldname + '-'+ Date.now()+'.jpg';
+  var jpgname = req.file.originalname;
   let userid = req.body.userid;
   let selectroutine = req.body.userroutineid;
   let workouts = [];
