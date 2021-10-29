@@ -55,10 +55,10 @@ router.post('/signup', upload.single("image"), function(req, res, next){
       con.query(sql3, function(err, result1){
         if(err){
           console.log(err);
-          res.status(404)
+          res.status(404).json
         }
       })
-      res.status(201)    
+      res.status(201).json    
   })
   
 });
