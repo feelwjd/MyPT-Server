@@ -46,12 +46,12 @@ router.post('/calories_cal', function(req, res, next) {
       if(err){
         console.log(err)
       }
-        res.status(201).json('"현재 소모한 칼로리 " : "'+total_cal.toFixed(3)+'"'); 
+        res.status(201).json({ message : "'+total_cal.toFixed(3)+'"}); 
     })
     
 });
 router.post('/mkroutine', function(req, res, next){
-    res.status(201).json('"messeage" : "success"');
+    res.status(201).json({messeage : "success"});
 });
 
 router.post('/picshare',upload.single('image'), (req, res)=>{

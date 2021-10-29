@@ -187,7 +187,7 @@ router.delete('/delete_routine', function(req, res, next){
           console.log(err);
         } 
       })
-      res.status(201).json('"messeage" : "success"');
+      res.status(201).json({messeage : "success"});
 });
 //루틴 수정
 router.put('/set_routine', function(req, res, next){
@@ -228,7 +228,7 @@ router.put('/set_routine', function(req, res, next){
                         if(err){
                           console.log(err);
                         }
-                        res.status(201).json('"messeage" : "success"');
+                        res.status(201).json({messeage : "success"});
                       })
                     }
                   }

@@ -70,14 +70,14 @@ router.post('/signin', function(req, res, next){
     var id = [user_id];
     con.query(sql, id, function(err, result){
       if(err){        
-        res.status(201).json('"messeage" : "id not found"'); 
+        res.status(201).json({messeage : "id not found"}); 
       }
       else{
         if(password === result[0].pw){         
           res.status(201).json({result});
         }
         else{
-          res.status(201).json('"messeage" : "passowrd wrong"'); 
+          res.status(201).json({messeage : "passowrd wrong"}); 
         }
       }
     })   
@@ -136,7 +136,7 @@ router.delete('/signdel', function(req, res, next){
                     if(err){
                       console.log(err)
                     }
-                    res.status(201).json('"messeage" : "회원 탈퇴 완료"'); 
+                    res.status(201).json({messeage : "회원 탈퇴 완료"}); 
                   })
                 })
               })
