@@ -55,10 +55,10 @@ router.post('/signup', upload.single("image"), function(req, res, next){
       con.query(sql3, function(err, result1){
         if(err){
           console.log(err);
-          res.status(404).json
+          res.status(404).json('"message" : 회원 가입 실패"');
         }
       })
-      res.status(201).json    
+      res.status(201).json('"messeage" : "회원 가입 완료"');     
   })
   
 });
@@ -77,7 +77,7 @@ router.post('/signin', function(req, res, next){
           res.status(201).json({result});
         }
         else{
-          res.status(201).json;
+          res.status(201).json('"messeage" : "passowrd wrong"'); 
         }
       }
     })   
