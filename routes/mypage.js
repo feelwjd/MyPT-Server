@@ -39,7 +39,7 @@ router.put('/beforeafter', upload.single('image'), (req, res)=>{
   var sql = con.query("insert image from UserBeforeAfter where user_id=?")
   var id = [user_id];
   con.query(sql, id, function(err, result){
-    res.status(201).json("애프터 사진 넣기 성공"); 
+    res.status(201).json({message : "애프터 사진 넣기 성공"}); 
   })  
 });
 //비포테프터 수정
@@ -57,7 +57,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "수정완료"');
+            res.status(201).json({messeage : "수정완료"});
         })
       }
       else{
@@ -67,7 +67,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "수정완료"');
+            res.status(201).json({messeage : "수정완료"});
         })
       }
     }
@@ -78,7 +78,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "수정완료"');
+            res.status(201).json({messeage : "수정완료"});
         })
     }
   }
@@ -92,7 +92,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "수정완료"');
+            res.status(201).json({messeage : "수정완료"});
         })
       }
       else{
@@ -102,7 +102,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "수정완료"');
+            res.status(201).json({messeage : "수정완료"});
         })
       }
     }
@@ -113,7 +113,7 @@ router.put('/beforeafter_change', function(req, res, next) {
           if(err){
             console.log(err);
           }
-          res.status(201).json('"messeage" : "수정완료"');
+            res.status(201).json({messeage : "수정완료"});
         })
     }
   }
@@ -187,7 +187,7 @@ router.delete('/delete_routine', function(req, res, next){
           console.log(err);
         } 
       })
-      res.status(201).json('"messeage" : "success"');
+      res.status(201).json({messeage : "success"});
 });
 //루틴 수정
 router.put('/set_routine', function(req, res, next){
@@ -228,7 +228,7 @@ router.put('/set_routine', function(req, res, next){
                         if(err){
                           console.log(err);
                         }
-                        res.status(201).json('"messeage" : "success"');
+                        res.status(201).json({messeage : "success"});
                       })
                     }
                   }

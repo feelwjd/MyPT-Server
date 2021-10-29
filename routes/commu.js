@@ -60,7 +60,7 @@ router.put('/heart', function(req, res, next){
         if(err){
             console.log(err);
         }
-        res.status(201).json('"messeage" : "success"'); 
+        res.status(201).json({messeage : "success"}); 
     })
     
 });
