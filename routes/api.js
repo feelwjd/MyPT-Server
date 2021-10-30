@@ -7,6 +7,8 @@ const e = require('express');
 router.use(function(req, res, next){
     next();
 });
+var rec_count = 1;
+var rec_count1 = 11;
 
 const con = mysql.createConnection({
 	host: 'ptdata.ceiotvbr944v.ap-northeast-2.rds.amazonaws.com',
@@ -101,5 +103,39 @@ router.post("/routine-info",function(req,res,next){
         con.query("select A.userid, A.routineid, A.UserRoutineId, A.RoutineDate, A.Time, group_concat(B.workoutid) as workoutid, C.routinename, C.description, group_concat(D.workoutname) as workoutname from UserRoutine A inner join UserRoutineWorkout B on A.UserRoutineId = B.UserRoutineId inner join routine C on A.routineid = C.routineid inner join workout D on D.workoutid = B.workoutid  where A.userid in ('"+userid+"') group by B.UserRoutineId",function(err,results){
                 res.send(results);
         });
+})
+
+router.post("/recommand_routine", function(req, res, next){
+        var userid = req.body.userid;
+        
+        sql = "select workoutid from recommand_routine where userid =? and rec_id=?"
+        if(userid == "feelwjd"){
+                con.query(sql, [userid, rec_count], function(err, result){
+                        rec_count +=1;
+                        if(err){
+                                console.log(err)
+                        }
+                        if(rec_count > 10){
+                                rec_count = 1;
+                        }
+                        console.log(rec_count);
+                        res.status(201).json(result);
+                }) 
+        }
+        if(userid == "dbehdgns118"){
+                con.query(sql, [userid, rec_count1], function(err, result){
+                        rec_count1 +=1;
+                        if(err){
+                                console.log(err)
+                        }
+                        if(rec_count1 > 20){
+                                rec_count1 = 11;
+                        }
+                        console.log(rec_count1);
+                        res.status(201).json(result);
+                })
+        }
+        
+        
 })
 module.exports = router;
