@@ -146,7 +146,7 @@ router.delete('/signdel', function(req, res, next){
         })
       }
       else{
-        res.status(404).json('"messeage" : "delete denied"'); 
+        res.status(404).json({messeage : "delete denied"}); 
       }
     }
     

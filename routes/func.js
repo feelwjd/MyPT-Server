@@ -46,7 +46,7 @@ router.post('/calories_cal', function(req, res, next) {
       if(err){
         console.log(err)
       }
-        res.status(201).json({ message : "'+total_cal.toFixed(3)+'"}); 
+        res.status(201).json({message : "'+total_cal.toFixed(3)+'"}); 
     })
     
 });

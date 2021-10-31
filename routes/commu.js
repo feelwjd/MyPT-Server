@@ -2,6 +2,10 @@ var express = require('express');
 const app = require('../app');
 var router = express.Router();
 const mysql = require('mysql');
+var util = require('util');
+var fs = require('fs');
+
+const readFile = util.promisify(fs.readFile);
 
 router.use(function(req, res, next){
     next();
@@ -60,17 +64,16 @@ router.put('/heart', function(req, res, next){
         if(err){
             console.log(err);
         }
-        res.status(201).json('"messeage" : "success"'); 
+        res.status(201).json({messeage : "success"}); 
     })
     
 });
 router.get('/share_show_all', function(req, res, next) {
-    var sql= "select * from community"
-    con.query(sql, function(err, result){
-        if(err){
-            console.log(err)
-        }
-        res.status(201).json(result); 
-    })
-  });
+    fs.readFile('public/shareimage/', function(err,data){   // 편집한 이미지 반환하여 보여주기
+        if(err) throw err;
+        res.writeHead(200, {"Context-Type": "image/png"});
+        res.write(data);
+        res.end();
+    });
+});
 module.exports = router;
