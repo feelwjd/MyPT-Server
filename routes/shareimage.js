@@ -32,6 +32,7 @@ router.post('/image',upload, function(req, res, next) {
   var jpgname = req.file.originalname;
   let userid = req.body.userid;
   let selectroutine = req.body.userroutineid;
+  let descript = req.body.commudescript;
   let workouts = [];
   let workoutlist = [];
   con.query("select * from UserRoutineWorkout where UserRoutineId in ('"+selectroutine+"')",function(err,results){
@@ -59,7 +60,7 @@ router.post('/image',upload, function(req, res, next) {
               res.writeHead(200, {"Context-Type": "image/png"});
               res.write(data);
               res.end();
-              con.query("insert into community(userid, image) values('"+userid+"','"+jpgname+"')",function(err,results){
+              con.query("insert into community(userid, image, commudescript) values('"+userid+"','"+jpgname+"','"+descript+"')",function(err,results){
                 if (err) throw err;
               });
             });
