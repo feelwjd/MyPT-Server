@@ -41,7 +41,7 @@ router.post('/share', upload.single('image'), function(req, res, next){
     
     var user_id = req.body.userid;
     var commu_descript = req.body.commudescript;
-    var image = req.file.path
+    var image = req.file.originalname
     console.log(commu_descript);
     var sql = "insert into community(userid, image ,commudescript, heart) value('"+user_id+"','"+image+"','"+commu_descript+"','"+0+"')"
     con.query(sql, function(err, result){
@@ -50,24 +50,6 @@ router.post('/share', upload.single('image'), function(req, res, next){
         }
         res.status(201).json({messeage : "success"}); 
     })
-    // var sql = "select heart from community where userid=?"
-    // con.query(sql, [user_id], function(err,result){
-    //     if(err){
-    //         console.log(err)
-    //     }
-    //     var heart = result[0].heart
-    //     var sql1 = "select image from community where userid=?"
-    //     con.query(sql1, [user_id], function(err, result1){
-    //         if(err){
-    //             console.log(err)
-    //         }
-    //         console.log("성공");
-    //         var image = result1[0].image;
-
-    //         data = {commudescript, image, heart}
-    //         res.status(201).json(data);
-    //     })
-    // })
 });
 //좋아요
 router.put('/heart', function(req, res, next){   
