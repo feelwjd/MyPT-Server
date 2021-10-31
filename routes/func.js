@@ -51,7 +51,7 @@ router.post('/calories_cal', function(req, res, next) {
     
 });
 router.post('/mkroutine', function(req, res, next){
-    res.status(201).json({messeage : "success"});
+    res.status(201).json({ messeage : "success"});
 });
 
 router.post('/picshare',upload.single('image'), (req, res)=>{
