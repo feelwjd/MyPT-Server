@@ -69,11 +69,12 @@ router.put('/heart', function(req, res, next){
     
 });
 router.get('/share_show_all', function(req, res, next) {
-    fs.readFile('public/shareimage/', function(err,data){   // 편집한 이미지 반환하여 보여주기
-        if(err) throw err;
-        res.writeHead(200, {"Context-Type": "image/png"});
-        res.write(data);
-        res.end();
-    });
+    var sql= "select * from community"
+    con.query(sql, function(err, result){
+        if(err){
+            console.log(err)
+        }
+        res.status(201).json(result); 
+    })
 });
 module.exports = router;
