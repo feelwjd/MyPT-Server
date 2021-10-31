@@ -2,6 +2,9 @@ var express = require('express');
 const app = require('../app');
 var router = express.Router();
 const mysql = require('mysql');
+var util = require('util');
+var fs = require('fs');
+const readFile = util.promisify(fs.readFile);
 
 router.use(function(req, res, next){
     next();
@@ -66,11 +69,23 @@ router.put('/heart', function(req, res, next){
 });
 router.get('/share_show_all', function(req, res, next) {
     var sql= "select * from community"
-    con.query(sql, function(err, result){
-        if(err){
-            console.log(err)
-        }
-        res.status(201).json(result); 
-    })
+    fileNames = fs.readdirSync('/public/shareimage/', ['**.jpg']);  // use async function instead of sync
+    const files = fileNames.map(function (filename) {
+        filepath = path.join(__dirname, '../public/shareimage') + '/' + filename;
+       return readFile(filepath); //updated here
+    });
+    Promise.all(files).then(fileNames => {
+        response.data = fileNames;
+        res.json(response);
+    }).catch(error => {
+        res.status(400).json(response);
+    });
+
+    //con.query(sql, function(err, result){
+    //    if(err){
+    //        console.log(err)
+    //    }
+    //    res.status(201).json(result); 
+    //})
   });
 module.exports = router;
