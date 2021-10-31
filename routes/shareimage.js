@@ -56,7 +56,7 @@ router.post('/image',upload, function(req, res, next) {
           else{
             fs.readFile('public/shareimage/'+jpgname, function(err,data){   // 편집한 이미지 반환하여 보여주기
               if(err) throw err;
-              res.writeHead(200, {"Context-Type": "image/jpg"});
+              res.writeHead(200, {"Context-Type": "image/png"});
               res.write(data);
               res.end();
               con.query("insert into community(userid, image) values('"+userid+"','"+jpgname+"')",function(err,results){
