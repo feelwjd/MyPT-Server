@@ -4,6 +4,7 @@ var router = express.Router();
 const mysql = require('mysql');
 var util = require('util');
 var fs = require('fs');
+
 const readFile = util.promisify(fs.readFile);
 
 router.use(function(req, res, next){
@@ -68,24 +69,11 @@ router.put('/heart', function(req, res, next){
     
 });
 router.get('/share_show_all', function(req, res, next) {
-    var sql= "select * from community"
-    fileNames = fs.readdirSync('/public/shareimage/', ['**.jpg']);  // use async function instead of sync
-    const files = fileNames.map(function (filename) {
-        filepath = path.join(__dirname, '../public/shareimage') + '/' + filename;
-       return readFile(filepath); //updated here
+    fs.readFile('public/shareimage/', function(err,data){   // 편집한 이미지 반환하여 보여주기
+        if(err) throw err;
+        res.writeHead(200, {"Context-Type": "image/png"});
+        res.write(data);
+        res.end();
     });
-    Promise.all(files).then(fileNames => {
-        response.data = fileNames;
-        res.json(response);
-    }).catch(error => {
-        res.status(400).json(response);
-    });
-
-    //con.query(sql, function(err, result){
-    //    if(err){
-    //        console.log(err)
-    //    }
-    //    res.status(201).json(result); 
-    //})
-  });
+});
 module.exports = router;
