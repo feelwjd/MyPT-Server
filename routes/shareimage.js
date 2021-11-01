@@ -50,8 +50,8 @@ router.post('/image',upload, function(req, res, next) {
         .resize(resizeX, resizeY)
         .fill('#ffffff')
         .font('public/font/BMJUA_ttf.ttf', 50).drawText(105,105,"MyPT")   // 폰트 설정// 텍스트 주입
-        .font('public/font/BMJUA_ttf.ttf', 40).drawText(105,750,"오늘의 루틴")               
-        .font('public/font/BMJUA_ttf.ttf', 25).drawText(105,850,""+workoutlist+"")
+        .font('public/font/BMJUA_ttf.ttf', 40).drawText(105,605,"오늘의 루틴")               
+        .font('public/font/BMJUA_ttf.ttf', 25).drawText(105,650,""+workoutlist+"")
         .write('public/shareimage/'+jpgname ,function(err){
           if(err){console.log(err);}  
           else{
