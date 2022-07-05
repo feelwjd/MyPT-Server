@@ -3,6 +3,8 @@ const app = require('../app');
 var router = express.Router();
 const mysql = require('mysql');
 const e = require('express');
+const dotenv = require('dotenv');
+dotenv.config();
 
 router.use(function(req, res, next){
     next();
@@ -11,10 +13,10 @@ var rec_count = 1;
 var rec_count1 = 11;
 
 const con = mysql.createConnection({
-	host: 'ptdata.ceiotvbr944v.ap-northeast-2.rds.amazonaws.com',
-	user: 'mypt',
-	password: '12345678',
-	database: 'mypt'
+        host: process.env.DB_NAME,
+        user: process.env.DB_USER,
+        password: process.env.DB_PW,
+        database: process.env.DB_DATABASE
 });
 
     

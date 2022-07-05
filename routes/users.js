@@ -5,6 +5,8 @@ const mysql = require('mysql');
 const e = require('express');
 const multer = require("multer");
 const path = require("path");
+const dotenv = require('dotenv');
+dotenv.config();
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -23,11 +25,11 @@ router.use(function(req, res, next){
 });
 
 const con = mysql.createConnection({
-	host: 'ptdata.ceiotvbr944v.ap-northeast-2.rds.amazonaws.com',
-	user: 'mypt',
-	password: '12345678',
-	database: 'mypt',
-  multipleStatements: true
+  host: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PW,
+  database: process.env.DB_DATABASE,
+  multipleStatements: true,
 });
 
 con.connect();

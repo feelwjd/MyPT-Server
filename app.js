@@ -11,18 +11,20 @@ var mypageRouter = require('./routes/mypage');
 var commuRouter = require('./routes/commu');
 var apiRouter = require('./routes/api');
 var shareimageRouter = require('./routes/shareimage');
+const dotenv = require('dotenv');
+dotenv.config();
 
 var app = express();
-const port = 8000;
+const port = process.env.PORT;
 const mysql = require('mysql');
 const {response} = require('express')
 
 function connect() {
     const db = mysql.createConnection({
-      host: 'ptdata.ceiotvbr944v.ap-northeast-2.rds.amazonaws.com',
-      user: 'mypt',
-      password: '12345678',
-      database: 'mypt',
+      host: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PW,
+      database: process.env.DB_DATABASE,
       multipleStatements: true,
     });
   

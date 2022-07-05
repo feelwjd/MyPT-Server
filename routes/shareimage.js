@@ -3,11 +3,15 @@ var router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const mysql = require('mysql');
+const dotenv = require('dotenv');
+dotenv.config();
+
 const con = mysql.createConnection({
-	host: 'ptdata.ceiotvbr944v.ap-northeast-2.rds.amazonaws.com',
-	user: 'mypt',
-	password: '12345678',
-	database: 'mypt'
+  host: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PW,
+  database: process.env.DB_DATABASE,
+  multipleStatements: true,
 });
 
 
