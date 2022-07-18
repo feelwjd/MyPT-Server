@@ -2,7 +2,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var logger = require('../gachon/config/winston');
+const session = require('express-session');
+const crypto = require('crypto');
 
+// Router Setting
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var mainRouter = require('./routes/main');
@@ -50,6 +54,17 @@ function connect() {
   };
   
 connect();
+
+//Use Session
+app.use(session({
+  key: 'sid',
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 2000 * 60 * 60 // 쿠키 유효기간 2시간
+  }
+}));
 
 app.use(logger('dev'));
 app.use(express.json());

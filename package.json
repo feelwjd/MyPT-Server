@@ -8,9 +8,11 @@
   "dependencies": {
     "brew": "0.0.8",
     "cookie-parser": "^1.4.5",
+    "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
     "express": "^4.16.4",
+    "express-session": "^1.17.3",
     "gm": "^1.23.1",
     "graphicsmagick": "0.0.1",
     "gs": "0.0.2",
