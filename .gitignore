@@ -144,7 +144,7 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/node
 
 #tflite tensorflow
-.tflite
+*.tflite
 
 #drawio
-.drawio
+*.drawio
