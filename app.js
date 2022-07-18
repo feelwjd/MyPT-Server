@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var logger = require('../gachon/config/winston');
+var logger = require('../MyPT-Server/config/winston.js');
 const session = require('express-session');
 const crypto = require('crypto');
 
@@ -66,7 +66,7 @@ app.use(session({
   }
 }));
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
