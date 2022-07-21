@@ -23,6 +23,7 @@ const port = process.env.PORT;
 const mysql = require('mysql');
 const {response} = require('express')
 
+//DB connect
 function connect() {
     const db = mysql.createConnection({
       host: process.env.DB_NAME,
