@@ -5,6 +5,9 @@ const mysql = require('mysql');
 const e = require('express');
 const multer = require("multer");
 const path = require("path");
+const crypto = require('crypto');
+const { encrypt, decrypt } = require('./crypto');
+var logger = require('../config/winston');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -41,6 +44,7 @@ router.post('/', function(req, res, next) {
 router.post('/signup', upload.single("image"), function(req, res, next){  
   user_id = req.body.userid;
   password = req.body.pw;
+  var encryptedpw = encrypt(password);
   username = req.body.username;
   height = req.body.height;
   weight = req.body.weight;
@@ -50,44 +54,52 @@ router.post('/signup', upload.single("image"), function(req, res, next){
   var sql = "select userid from users where userid=?;";
   var id = [user_id];
   var sql1 = mysql.format(sql, id);
-  var sql2 = "insert into users(userid, pw, username, height, weight, sex, image) values ('"+user_id+"','"+password+"','"+username+"','"+height+"','"+weight+"','"+sex+"','"+image+"');"
+  var sql2 = "insert into users(userid, pw, username, height, weight, sex, image) values ('" + user_id + "','" + encryptedpw +"','"+username+"','"+height+"','"+weight+"','"+sex+"','"+image+"');"
   var sql3 = "insert into UserBeforeAfter(userid, before_pic, weight, height) values('"+user_id+"','"+image+"','"+weight+"','"+height+"');"
 
   con.query(sql1+sql2, function(err, result){
+    if(err){
+      res.status(400).json({message : "회원 가입 실패"});
+    }
+    else{
       con.query(sql3, function(err, result1){
         if(err){
           console.log(err);
           res.status(404).json({message : "회원 가입 실패"});
         }
       })
-      res.status(201).json({messeage : "회원 가입 완료"});     
+      res.status(201).json({messeage : "회원 가입 완료"});   
+    }  
   })
   
 });
 //로그인
 router.post('/signin', function(req, res, next){  
-    user_id = req.body.userid;
-    password = req.body.pw;
-    var sql = "select userid, pw, weight from users where userid=?";
-    var id = [user_id];
-    con.query(sql, id, function(err, result){
-      if(err){        
-        res.status(201).json({messeage : "id not found"}); 
+  user_id = req.body.userid;
+  password = req.body.pw;
+  var sql = "select userid, pw, weight from users where userid=?";
+  var id = [user_id];
+  con.query(sql, id, function(err, result){
+    if(err){        
+      res.status(201).json({messeage : "id not found"}); 
+    }
+    else{
+      var decryptedpw = decrypt(result[0].pw);
+      if (password === decryptedpw){
+        req.session.email = user_id; // 세션 생성         
+        res.status(201).json({result});
       }
       else{
-        if(password === result[0].pw){         
-          res.status(201).json({result});
-        }
-        else{
-          res.status(201).json({messeage : "passowrd wrong"}); 
-        }
+        res.status(201).json({messeage : "passowrd wrong"}); 
       }
-    })   
+    }
+  })   
 });
 //로그아웃
-router.post('/signout', function(req, res, next){ 
-  
-});
+router.post("/logout", function (req, res, next) {
+  req.session.destroy();
+  res.clearCookie('sid');
+})
 //회원탈퇴
 router.delete('/signdel', function(req, res, next){
   user_id = req.body.userid;
@@ -150,12 +162,8 @@ router.delete('/signdel', function(req, res, next){
       else{
         res.status(404).json({messeage : "delete denied"}); 
       }
-    }
-    
-
-    
+    }   
   })
-  
 });
 
 module.exports = router;
