@@ -18,15 +18,6 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });
 
-
-router.use(function(req, res, next){
-    next();
-});
-
-router.use(function(req, res, next){
-    next();
-});
-
 const con = mysql.createConnection({
     host: process.env.DB_NAME,
     user: process.env.DB_USER,

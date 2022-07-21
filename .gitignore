@@ -148,3 +148,7 @@ dist
 
 #drawio
 *.drawio
+
+#images
+*.jpg
+*.png

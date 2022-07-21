@@ -27,8 +27,6 @@ var upload = multer({ storage: storage }).single('image');
 
 var fs = require('fs');
 var gm = require('gm'); // graphics magick use
-var resizeX = 1080
-  , resizeY = 1080;     // 1080x1080 resize
 
 
 /* GET home page. */
@@ -51,11 +49,11 @@ router.post('/image',upload, function(req, res, next) {
           workoutlist.push(results[idx].workoutname);
         }
         gm(req.file.path)
-        .resize(resizeX, resizeY)
+        .resize(1080, 1080)
         .fill('#ffffff')
-        .font('public/font/BMJUA_ttf.ttf', 50).drawText(105,105,"MyPT")   // 폰트 설정// 텍스트 주입
-        .font('public/font/BMJUA_ttf.ttf', 40).drawText(105,605,"오늘의 루틴")               
-        .font('public/font/BMJUA_ttf.ttf', 25).drawText(105,650,""+workoutlist+"")
+        .font('public/font/BMJUA_ttf.ttf', 100).drawText(105,105,"MyPT")   // 폰트 설정// 텍스트 주입
+        .font('public/font/BMJUA_ttf.ttf', 65).drawText(105,850,"오늘의 루틴")               
+        .font('public/font/BMJUA_ttf.ttf', 40).drawText(105,900,""+workoutlist+"")
         .write('public/shareimage/'+jpgname ,function(err){
           if(err){console.log(err);}  
           else{
