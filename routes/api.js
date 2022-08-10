@@ -150,4 +150,16 @@ router.post("/recommand_routine", function(req, res, next){
         
         
 })
+
+router.post("/SessionCheck", function(req, res, next){
+        let check = req.body.cookie;
+        let session = req.session;
+        if(check == session){
+                res.status(201).json(session);
+        }else{
+                let msg = '세션이 만료되었습니다.'
+                res.status(301).json(msg);
+        }
+        
+})
 module.exports = router;

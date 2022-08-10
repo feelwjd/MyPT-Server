@@ -74,23 +74,25 @@ router.post('/signup', upload.single("image"), function(req, res, next){
   
 });
 //로그인
-router.post('/signin', function(req, res, next){  
+router.post('/signin', function(req, res, next){ 
   user_id = req.body.userid;
   password = req.body.pw;
   var sql = "select userid, pw, weight from users where userid=?";
   var id = [user_id];
   con.query(sql, id, function(err, result){
     if(err){        
-      res.status(201).json({messeage : "id not found"}); 
+      res.status(301).json({messeage : "id not found"}); 
     }
     else{
       var decryptedpw = decrypt(result[0].pw);
       if (password === decryptedpw){
-        req.session.email = user_id; // 세션 생성         
-        res.status(201).json({result});
+        req.session.email = user_id; // 세션 생성
+        var session = req.session.email;
+        var status = 201;       
+        res.status(201).json({result,status,session});
       }
       else{
-        res.status(201).json({messeage : "passowrd wrong"}); 
+        res.status(302).json({messeage : "passowrd wrong"}); 
       }
     }
   })   
