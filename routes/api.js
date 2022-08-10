@@ -153,7 +153,7 @@ router.post("/recommand_routine", function(req, res, next){
 
 router.post("/SessionCheck", function(req, res, next){
         let check = req.body.cookie;
-        let session = req.session;
+        let session = req.session.email;
         if(check == session){
                 res.status(201).json(session);
         }else{
