@@ -151,6 +151,7 @@ router.post("/recommand_routine", function(req, res, next){
         
 })
 
+//Client's Session Check
 router.post("/SessionCheck", function(req, res, next){
         let check = req.body.cookie;
         let session = req.session.email;
