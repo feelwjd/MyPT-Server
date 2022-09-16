@@ -195,6 +195,6 @@ router.post("/recommand_routine", function(req, res, next){
         }
         
         
-})
+});
 
 module.exports = router;
