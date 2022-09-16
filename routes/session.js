@@ -4,6 +4,7 @@ var router = express.Router();
 const mysql = require('mysql');
 const e = require('express');
 const dotenv = require('dotenv');
+const logger = require('../config/winston');
 dotenv.config();
 
 router.use(function(req, res, next){
@@ -22,10 +23,12 @@ router.post("/SessionCheck", function(req, res, next){
     let check = req.body.cookie;
     let session = req.session.email;
     if(check == session){
-            res.status(201).json(session);
+        res.status(201).json(session);
     }else{
-            let msg = '세션이 만료되었습니다.'
-            res.status(301).json(msg);
+        logger.info(check);
+        logger.info(session);
+        let msg = '세션이 만료되었습니다.'
+        res.status(301).json(msg);
     }
     
 });
