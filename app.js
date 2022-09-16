@@ -16,6 +16,7 @@ var mypageRouter = require('./routes/mypage');
 var commuRouter = require('./routes/commu');
 var apiRouter = require('./routes/api');
 var shareimageRouter = require('./routes/shareimage');
+var sessionRouter = require('./routes/session');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -101,6 +102,7 @@ app.use('/mypage', mypageRouter);
 app.use('/commu', commuRouter);
 app.use('/api', apiRouter);
 app.use('/shareimage', shareimageRouter);
+app.use('/session', sessionRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

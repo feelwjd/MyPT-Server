@@ -4,6 +4,8 @@ var router = express.Router();
 const mysql = require('mysql');
 const multer = require("multer");
 const path = require("path");
+const {LogSet} = require('../config/common');
+const INTERFACE_NAME = "FUNC";
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -34,6 +36,7 @@ router.post('/', function(req, res, next) {
     res.status(201).json('"messeage" : "success"'); 
   });
 
+//칼로리 계산 기능
 router.post('/calories_cal', function(req, res, next) {
     var count = req.body.count; // 1분 몇개인지
     var weight = req.body.weight;
@@ -46,18 +49,30 @@ router.post('/calories_cal', function(req, res, next) {
     let sql = "INSERT INTO calories(userid, calories, date) VALUES ('"+user_id+"','"+total_cal.toFixed(3)+"', '"+day+"')"
     con.query(sql, function(err, result){
       if(err){
+        LogSet("e",INTERFACE_NAME,"CCAL","DF",1);
         console.log(err)
-      }
+      }else{
+        LogSet("i",INTERFACE_NAME,"CCAL","DS",1);
         res.status(201).json({message : "'+total_cal.toFixed(3)+'"}); 
+      }
     })
-    
 });
+
+//루틴 생성 기능
+//추후 개발 예정.
 router.post('/mkroutine', function(req, res, next){
     res.status(201).json({messeage : "success"});
 });
 
+//이미지 공유 기능
 router.post('/picshare',upload.single('image'), (req, res)=>{
-    let image = req.file.path;
-    res.status(201).json(image);
+    try{
+      let image = req.file.path;
+      LogSet("i",INTERFACE_NAME,"PCSH","MS",1);
+      res.status(201).json(image);
+    }catch(e){
+      LogSet("e",INTERFACE_NAME,"PCSH","MF",1);
+      console.log(e);
+    }  
 });
 module.exports = router;

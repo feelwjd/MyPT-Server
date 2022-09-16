@@ -1,15 +1,23 @@
+const logger = require("./winston");
+
 /**
  * 
- * @param {String} param 
- * @param {String} val 
+ * @param {String} val i : info / e : error
+ * @param {String} interface    Interface Code (4)
+ * @param {String} funcName     Function Name (4)
+ * @param {String} code         Code (2)
+ * @param {Int} step            Process Step
+ * 
+ * @Auth TONY MIN
  */
-function LogSet(param, val){
+function LogSet(val, interface, funcName, code, step ){
     if(val=="i"){
-
+        logger.info(`IF_`+interface+`_`+funcName+` `+code+` PROC_STEP:`+step);
     }else if(val=="e"){
-
+        logger.error(`IF_`+interface+`_`+funcName+` ERROR:`+code+`E PROC_STEP:`+step);
     }else{
-        logger.info(`MP_IF_LGST_FN LE PROC_STEP:1 SUCC_CNT:0 FAIL_CNT:1`);
-        logger.error(`MP_IF_LGST_FN LE ERROR_CODE:LOE0001 LS:1`);
+        logger.error(`IF_`+interface+`_`+funcName+` ERROR:`+code+`E PROC_STEP:`+step);
     }
 }
+
+module.exports = {LogSet};

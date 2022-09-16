@@ -7,7 +7,8 @@ const multer = require("multer");
 const path = require("path");
 const crypto = require('crypto');
 const { encrypt, decrypt } = require('./crypto');
-var logger = require('../config/winston');
+const {LogSet} = require('../config/common');
+const INTERFACE_NAME = "USRS";
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -38,9 +39,10 @@ const con = mysql.createConnection({
 con.connect();
 /* GET home page. */
 router.post('/', function(req, res, next) {
-    res.status(201).json('"messeage" : "success"'); 
-  });
-//회원가입
+  res.status(201).json('"messeage" : "success"'); 
+});
+
+//회원가입 (추후 수정 예정)
 router.post('/signup', upload.single("image"), function(req, res, next){  
   user_id = req.body.userid;
   password = req.body.pw;
@@ -59,19 +61,22 @@ router.post('/signup', upload.single("image"), function(req, res, next){
 
   con.query(sql1+sql2, function(err, result){
     if(err){
+      LogSet("e",INTERFACE_NAME,"SGUP","DF",1);
       res.status(400).json({message : "회원 가입 실패"});
-    }
-    else{
+    }else{
+      LogSet("i",INTERFACE_NAME,"SGUP","DS",1);
       con.query(sql3, function(err, result1){
         if(err){
+          LogSet("e",INTERFACE_NAME,"SGUP","DF",2);
           console.log(err);
           res.status(404).json({message : "회원 가입 실패"});
+        }else{
+          LogSet("i",INTERFACE_NAME,"SGUP","DS",2);
         }
-      })
+      });
       res.status(201).json({messeage : "회원 가입 완료"});   
     }  
-  })
-  
+  }); 
 });
 //로그인
 router.post('/signin', function(req, res, next){ 
@@ -80,18 +85,22 @@ router.post('/signin', function(req, res, next){
   var sql = "select userid, pw, weight from users where userid=?";
   var id = [user_id];
   con.query(sql, id, function(err, result){
-    if(err){        
+    if(err){      
+      LogSet("e",INTERFACE_NAME,"SGIN","DF",1);  
       res.status(301).json({messeage : "id not found"}); 
     }
     else{
+      LogSet("i",INTERFACE_NAME,"SGIN","DS",1);
       var decryptedpw = decrypt(result[0].pw);
       if (password === decryptedpw){
         req.session.email = encrypt(user_id); // 세션 생성
         var session = req.session.email;
-        var status = 201;       
+        var status = 201;
+        LogSet("i",INTERFACE_NAME,"SGIN","DS",2);       
         res.status(201).json({result,status,session});
       }
       else{
+        LogSet("e",INTERFACE_NAME,"SGIN","DF",2); 
         res.status(302).json({messeage : "passowrd wrong"}); 
       }
     }
@@ -102,16 +111,18 @@ router.post("/logout", function (req, res, next) {
   req.session.destroy();
   res.clearCookie('sid');
 })
-//회원탈퇴
+//회원탈퇴 (추후 수정 예정)
 router.delete('/signdel', function(req, res, next){
   user_id = req.body.userid;
   password = req.body.pw;
   var sql2 = "select pw from users where userid=?"
   con.query(sql2, [user_id], function(err,result){
     if(err){
+      LogSet("e",INTERFACE_NAME,"SGDE","DF",1);
       console.log(err);
     }
     else{
+      LogSet("i",INTERFACE_NAME,"SGDE","DS",1);
       if(password == result[0].pw){
         var sql = "select userRoutineId from UserRoutine where userid =?"
         con.query(sql, [user_id], function(err, result){

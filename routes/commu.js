@@ -5,6 +5,8 @@ const mysql = require('mysql');
 const multer = require("multer");
 const path = require("path");
 const { RSA_NO_PADDING } = require('constants');
+const {LogSet} = require('../config/common');
+const INTERFACE_NAME = "CMMU";
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -39,9 +41,12 @@ router.post('/share', upload.single('image'), function(req, res, next){
     var sql = "insert into community(userid, image ,commudescript, heart) value('"+user_id+"','"+image+"','"+commu_descript+"','"+0+"')"
     con.query(sql, function(err, result){
         if(err){
-            console.log(err)
+            LogSet("e",INTERFACE_NAME,"SHRE","DF",1);
+            console.log(err);
+        }else{
+            LogSet("i",INTERFACE_NAME,"SHRE","DS",1);
+            res.status(201).json({messeage : "success"}); 
         }
-        res.status(201).json({messeage : "success"}); 
     })
 });
 //좋아요
@@ -60,9 +65,12 @@ router.put('/heart', function(req, res, next){
     var sql = "Update community set heart=? where userid=?"
     con.query(sql,[count, user_id], function(err, result){
         if(err){
+            LogSet("e",INTERFACE_NAME,"SHRE","DF",1);
             console.log(err);
+        }else{
+            LogSet("i",INTERFACE_NAME,"SHRE","DS",1);
+            res.status(201).json({messeage : "success"}); 
         }
-        res.status(201).json({messeage : "success"}); 
     })
     
 });
@@ -70,9 +78,12 @@ router.get('/share_show_all', function(req, res, next) {
     var sql= "select * from community"
     con.query(sql, function(err, result){
         if(err){
-            console.log(err)
+            LogSet("e",INTERFACE_NAME,"SHRE","DF",1);
+            console.log(err);
+        }else{
+            LogSet("i",INTERFACE_NAME,"SHRE","DS",1);
+            res.status(201).json(result); 
         }
-        res.status(201).json(result); 
     })
 });
 module.exports = router;
