@@ -14,12 +14,12 @@ function encrypt(text) {
         var cipher = crypto.createCipheriv(algorithm, KEY, Buffer.from(IV));
         let encrypted = cipher.update(text, 'utf8', 'hex');
         encrypted += cipher.final('hex');
-        logger.info(`GC_IF_STCD_SD SF PROC_STEP:1 SUCC_CNT:1 FAIL_CNT:0`);
+        logger.info(`MP_IF_ENCR_FN SF PROC_STEP:1 SUCC_CNT:1 FAIL_CNT:0`);
         return encrypted;
     }
     else {
-        logger.info(`GC_IF_STCD_SD SE PROC_STEP:1 SUCC_CNT:0 FAIL_CNT:1`);
-        logger.error(`GC_IF_STCD_SD SE ERROR_CODE:ESS002 LS:1`);
+        logger.info(`MP_IF_ENCR_FN SE PROC_STEP:1 SUCC_CNT:0 FAIL_CNT:1`);
+        logger.error(`MP_IF_ENCR_FN SE ERROR_CODE:FNE0001 LS:1`);
     }
 }
 

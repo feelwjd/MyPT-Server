@@ -20,12 +20,17 @@ const con = mysql.createConnection({
 });
 
     
-//Mysql 데이터
+//routine 데이터
 router.post("/routine", function(req, res, next) {
         con.query('SELECT * FROM routine', function(err, results){
-                if(err)
+                if(err){
+                        logger.info(`MP_IF_APIP_RU SE PROC_STEP:1 SUCC_CNT:0 FAIL_CNT:1`);
+                        logger.error(`MP_IF_APIP_RU SE ERROR_CODE:FNE0001 LS:1`);
                         console.log(err);
-                res.send(results);
+                }else{
+                        logger.info(`MP_IF_APIP_RU SF PROC_STEP:1 SUCC_CNT:1 FAIL_CNT:0`);
+                        res.send(results);
+                }
         });
 });
 //전체 정보
