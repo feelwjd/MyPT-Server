@@ -28,4 +28,6 @@ router.post("/SessionCheck", function(req, res, next){
             res.status(301).json(msg);
     }
     
-})
+});
+
+module.exports = router;
