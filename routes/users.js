@@ -94,6 +94,7 @@ router.post('/signin', function(req, res, next){
       var decryptedpw = decrypt(result[0].pw);
       if (password === decryptedpw){
         req.session.email = encrypt(user_id); // 세션 생성
+        LogSet("i",INTERFACE_NAME,req.session.email,"SC",1);
         var session = req.session.email;
         var status = 201;
         LogSet("i",INTERFACE_NAME,"SGIN","DS",2);       

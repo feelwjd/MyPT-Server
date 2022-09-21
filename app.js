@@ -58,7 +58,7 @@ function connect() {
   
 connect();
 
-const whitelist = ["http://localhost:19006", "http://localhost:19000", "http://localhost:19005", "http://localhost:5555"];
+const whitelist = ["http://localhost:19006", "http://localhost:19000", "http://localhost:19005", "http://localhost:5555", "	http://localhost:5554"];
  
 const corsOptions = {
   origin: function (origin, callback) { 
@@ -70,7 +70,7 @@ const corsOptions = {
   },
 };
  
-app.use(cors(corsOptions)); // 옵션을 추가한 CORS 미들웨어 추가
+app.use(cors()); // 옵션을 추가한 CORS 미들웨어 추가
 
 //Use Session
 app.use(session({
